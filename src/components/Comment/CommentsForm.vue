@@ -50,11 +50,15 @@ export default {
       this.isLoading = true
       try {
         let postData = {}
+        if(this.commentText == ''){
+          return;
+        }
         console.log(this.commentText)
         postData['content'] = this.commentText
         postData['topic_id'] = this.slug
         await pushComment(postData)
         this.$emit('loadComments', this.slug)
+        this.commentText=''
         this.$message.success('留言成功')
       } catch (e) {
         this.$buefy.toast.open({
